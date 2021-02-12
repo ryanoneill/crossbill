@@ -53,4 +53,12 @@ case class ModuleByteReader(buf: Buf) extends WebAssemblyByteReader(buf) {
     esbr.read()
   }
 
+  def readCodeSection(): CodeSection = {
+    // TODO: This needs additional work
+    verify(0x0A.toByte) // Code Section is Section 10
+    val size = readByte()
+    val csbr = CodeSectionByteReader(readBytes(size))
+    csbr.read()
+  }
+
 }
