@@ -5,9 +5,13 @@ import com.twitter.io.Buf
 case class ImportSectionByteReader(buf: Buf) extends WebAssemblyByteReader(buf) {
 
   def readImportDescription(): ImportDescription = {
-    // TODO: This needs additional work
-    verify(0x00.toByte)
-    ImportDescription.Func(readByte())
+    readByte() match {
+      case 0x00 => ImportDescription.Func(readByte())
+      case 0x01 => throw UnsupportedFeatureException("ImportDescription.Table")
+      case 0x02 => throw UnsupportedFeatureException("ImportDescription.Mem")
+      case 0x03 => throw UnsupportedFeatureException("ImportDescription.Global")
+      case actual => throw NotInRangeException(0x00.toByte, 0x03.toByte, actual)
+    }
   }
 
   def readImport(): Import = Import(
