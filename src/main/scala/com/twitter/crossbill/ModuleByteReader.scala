@@ -61,4 +61,17 @@ case class ModuleByteReader(buf: Buf) extends WebAssemblyByteReader(buf) {
     csbr.read()
   }
 
+  def read(): Module = {
+    // TODO: This needs additional work
+    readMagic()
+    readVersion()
+    Module(
+      readTypeSection(),
+      readImportSection(),
+      readFunctionSection(),
+      readExportSection(),
+      readCodeSection()
+    )
+  }
+
 }

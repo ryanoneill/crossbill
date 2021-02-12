@@ -1,3 +1,10 @@
 package com.twitter.crossbill
 
-case class Module()
+// TODO: This needs additional work
+case class Module(
+  typeSection: TypeSection, 
+  importSection: ImportSection,
+  functionSection: FunctionSection,
+  exportSection: ExportSection,
+  codeSection: CodeSection
+)
