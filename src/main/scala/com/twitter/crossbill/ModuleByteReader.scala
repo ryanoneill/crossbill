@@ -37,4 +37,12 @@ case class ModuleByteReader(buf: Buf) extends WebAssemblyByteReader(buf) {
     isbr.read()
   }
 
+  def readExportSection(): ExportSection = {
+    // TODO: This needs additional work
+    verify(0x07.toByte) // Export Section is Section 7
+    val size = readByte()
+    val esbr = ExportSectionByteReader(readBytes(size))
+    esbr.read()
+  }
+
 }

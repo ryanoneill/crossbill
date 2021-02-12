@@ -14,6 +14,8 @@ abstract class WebAssemblyByteReader(buf: Buf) extends ProxyByteReader {
       throw InvalidFormatException(s"Expected $byte at position $position, found $actual")
   }
 
+  protected def fill[T](n: Int, f: => T): Seq[T] = Seq.fill(n)(f)
+
   protected def readUtf8String(): String = {
     val size = readByte()
     readString(size, WebAssemblyByteReader.Utf8)
