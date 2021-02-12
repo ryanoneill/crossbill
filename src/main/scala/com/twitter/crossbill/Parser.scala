@@ -9,6 +9,7 @@ case class Parser(buf: Buf) {
     val mbr = ModuleByteReader(buf)
     mbr.readMagic()
     mbr.readVersion()
+    mbr.readTypeSection()
     Future.???
   }
 

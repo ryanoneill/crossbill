@@ -1,3 +1,3 @@
 package com.twitter.crossbill
 
-case class Import(mod: String, nm: String, d: ImportDescription)
+case class Import(module: String, name: String, description: ImportDescription)
