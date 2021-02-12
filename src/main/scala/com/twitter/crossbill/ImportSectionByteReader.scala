@@ -8,7 +8,7 @@ case class ImportSectionByteReader(buf: Buf) extends WebAssemblyByteReader(buf) 
     readByte() match {
       case 0x00 => ImportDescription.Func(readByte())
       case 0x01 => throw UnsupportedFeatureException("ImportDescription.Table")
-      case 0x02 => throw UnsupportedFeatureException("ImportDescription.Mem")
+      case 0x02 => ImportDescription.Mem(readLimits())
       case 0x03 => throw UnsupportedFeatureException("ImportDescription.Global")
       case actual => throw NotInRangeException(0x00.toByte, 0x03.toByte, actual)
     }
