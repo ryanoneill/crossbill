@@ -4,19 +4,6 @@ import com.twitter.io.Buf
 
 case class TypeSectionByteReader(buf: Buf) extends WebAssemblyByteReader(buf) {
 
-  def readValueType(): ValueType = {
-    readByte() match {
-      case 0x7F => ValueType.I32
-      case 0x7E => ValueType.I64
-      case 0x7D => ValueType.F32
-      case 0x7C => ValueType.F64
-      case actual => 
-        throw InvalidFormatException(
-          "Byte at position $position was expected to be a value type, found $actual"
-        )
-    }
-  }
-
   def readResultType(): ResultType = {
     val size = readByte()
     if (size == 0) ResultType.Nil

@@ -24,6 +24,14 @@ abstract class WebAssemblyByteReader(buf: Buf) extends ProxyByteReader {
     case actual => throw NotInRangeException(0x00.toByte, 0x01.toByte, actual)
   }
 
+  protected def readValueType(): ValueType = readByte() match {
+    case 0x7F => ValueType.I32
+    case 0x7E => ValueType.I64
+    case 0x7D => ValueType.F32
+    case 0x7C => ValueType.F64
+    case actual => throw NotInRangeException(0x7C.toByte, 0x7F.toByte, actual)
+  }
+
 }
 
 object WebAssemblyByteReader {
