@@ -6,6 +6,7 @@ case class Module(
   importSection: ImportSection = ImportSection.Empty,
   functionSection: FunctionSection = FunctionSection.Empty,
   tableSection: TableSection = TableSection.Empty,
+  memorySection: MemorySection = MemorySection.Empty,
   exportSection: ExportSection = ExportSection.Empty,
   codeSection: CodeSection = CodeSection.Empty
 )

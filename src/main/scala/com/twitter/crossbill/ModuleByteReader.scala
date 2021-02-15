@@ -45,6 +45,12 @@ case class ModuleByteReader(buf: Buf) extends WebAssemblyByteReader(buf) {
     tsbr.read()
   }
 
+  def readMemorySection(): MemorySection = {
+    val size = readByte()
+    val msbr = MemorySectionByteReader(readBytes(size))
+    msbr.read()
+  }
+
   def readExportSection(): ExportSection = {
     val size = readByte()
     val esbr = ExportSectionByteReader(readBytes(size))
@@ -69,6 +75,7 @@ case class ModuleByteReader(buf: Buf) extends WebAssemblyByteReader(buf) {
         case 0x02 => module = module.copy(importSection = readImportSection())
         case 0x03 => module = module.copy(functionSection = readFunctionSection())
         case 0x04 => module = module.copy(tableSection = readTableSection())
+        case 0x05 => module = module.copy(memorySection = readMemorySection())
         case 0x07 => module = module.copy(exportSection = readExportSection())
         case 0x0A => module = module.copy(codeSection = readCodeSection())
         case actual => throw UnsupportedFeatureException(s"Module 0x${actual.toHexString}")
