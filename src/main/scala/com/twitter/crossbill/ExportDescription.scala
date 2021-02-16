@@ -1,12 +1,11 @@
 package com.twitter.crossbill
 
-// TODO: Combine with ImportDescription
+// TODO: Combine with ImportDescription?
 sealed trait ExportDescription
 
 object ExportDescription {
-  case class Func(typeidx: Int) extends ExportDescription
-  // TODO: This needs additional work
-  case object Table extends ExportDescription
-  case object Mem extends ExportDescription
-  case object Global extends ExportDescription
+  case class Func(functionIndex: Int) extends ExportDescription
+  case class Table(tableIndex: Int) extends ExportDescription
+  case class Mem(memoryIndex: Int) extends ExportDescription
+  case class Global(globalIndex: Int) extends ExportDescription
 }

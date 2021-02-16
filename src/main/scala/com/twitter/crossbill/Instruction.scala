@@ -51,4 +51,28 @@ object Instruction {
   case object I32And extends Instruction
   case object I32Or extends Instruction
   // TODO: A Ton More
+  case object I64Clz extends Instruction
+  case object I64Ctz extends Instruction
+  case object I64Popcnt extends Instruction
+  case object I64Add extends Instruction
+  case object I64Sub extends Instruction
+  case object I64Mul extends Instruction
+  case object I64DivS extends Instruction
+  case object I64DivU extends Instruction
+  case object I64RemS extends Instruction
+  case object I64RemU extends Instruction
+  case object I64And extends Instruction
+  case object I64Or extends Instruction
+  case object I64Xor extends Instruction
+  case object I64Shl extends Instruction
+  case object I64ShrS extends Instruction
+  case object I64ShrU extends Instruction
+  case object I64Rotl extends Instruction
+  case object I64Rotr extends Instruction
+  // TODO: A Ton More
+  case object I32Extend8S extends Instruction
+  case object I32Extend16S extends Instruction
+  case object I64Extend8S extends Instruction
+  case object I64Extend16S extends Instruction
+  case object I64Extend32S extends Instruction
 }
