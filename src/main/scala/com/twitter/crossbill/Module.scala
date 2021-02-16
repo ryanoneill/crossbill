@@ -9,5 +9,6 @@ case class Module(
   memorySection: MemorySection = MemorySection.Empty,
   globalSection: GlobalSection = GlobalSection.Empty,
   exportSection: ExportSection = ExportSection.Empty,
+  elementSection: ElementSection = ElementSection.Empty,
   codeSection: CodeSection = CodeSection.Empty
 )
