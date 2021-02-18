@@ -22,55 +22,55 @@ case class ModuleByteReader(buf: Buf) extends WebAssemblyByteReader(buf) {
   }
 
   def readTypeSection(): TypeSection = {
-    val size = readByte()
+    val size = readUnsigned32()
     val tsbr = TypeSectionByteReader(readBytes(size))
     tsbr.read()
   }
 
   def readImportSection(): ImportSection = {
-    val size = readByte()
+    val size = readUnsigned32()
     val isbr = ImportSectionByteReader(readBytes(size))
     isbr.read()
   }
 
   def readFunctionSection(): FunctionSection = {
-    val size = readByte()
+    val size = readUnsigned32()
     val fsbr = FunctionSectionByteReader(readBytes(size))
     fsbr.read()
   }
 
   def readTableSection(): TableSection = {
-    val size = readByte()
+    val size = readUnsigned32()
     val tsbr = TableSectionByteReader(readBytes(size))
     tsbr.read()
   }
 
   def readMemorySection(): MemorySection = {
-    val size = readByte()
+    val size = readUnsigned32()
     val msbr = MemorySectionByteReader(readBytes(size))
     msbr.read()
   }
 
   def readGlobalSection(): GlobalSection = {
-    val size = readByte()
+    val size = readUnsigned32()
     val gsbr = GlobalSectionByteReader(readBytes(size))
     gsbr.read()
   }
 
   def readExportSection(): ExportSection = {
-    val size = readByte()
+    val size = readUnsigned32()
     val esbr = ExportSectionByteReader(readBytes(size))
     esbr.read()
   }
 
   def readElementSection(): ElementSection = {
-    val size = readByte()
+    val size = readUnsigned32()
     val esbr = ElementSectionByteReader(readBytes(size))
     esbr.read()
   }
 
   def readCodeSection(): CodeSection = {
-    val size = readByte()
+    val size = readUnsigned32()
     val csbr = CodeSectionByteReader(readBytes(size))
     csbr.read()
   }

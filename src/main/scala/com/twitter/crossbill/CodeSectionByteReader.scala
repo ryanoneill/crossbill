@@ -5,12 +5,12 @@ import com.twitter.io.Buf
 case class CodeSectionByteReader(buf: Buf) extends WebAssemblyByteReader(buf) {
 
   def readCodeEntry(): CodeEntry = {
-    val size = readByte()
+    val size = readUnsigned32()
     val cebr = CodeEntryByteReader(readBytes(size))
     cebr.read()
   }
 
-  def read(): CodeSection = 
+  def read(): CodeSection =
     CodeSection(fill(readByte(), readCodeEntry()))
 
 }

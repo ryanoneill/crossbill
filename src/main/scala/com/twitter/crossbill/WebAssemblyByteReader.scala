@@ -6,7 +6,6 @@ import scala.collection.mutable.ArrayBuffer
 
 abstract class WebAssemblyByteReader(buf: Buf) extends ProxyByteReader {
   protected val reader = ByteReader(buf)
-
   protected def position: Int = buf.length - remaining
 
   protected def verify(byte: Byte): Unit = {
@@ -22,8 +21,8 @@ abstract class WebAssemblyByteReader(buf: Buf) extends ProxyByteReader {
   protected def readMemarg(): Memarg = Memarg(readByte(), readByte())
 
   protected def readLimits(): Limits = readByte() match {
-    case 0x00 => Limits.Min(readByte())
-    case 0x01 => Limits.MinMax(readByte(), readByte())
+    case 0x00 => Limits.Min(readUnsigned32())
+    case 0x01 => Limits.MinMax(readUnsigned32(), readUnsigned32())
     case actual => throw NotInRangeException(0x00.toByte, 0x01.toByte, actual)
   }
 
@@ -84,6 +83,25 @@ abstract class WebAssemblyByteReader(buf: Buf) extends ProxyByteReader {
       current = readByte()
     }
     results.toSeq
+  }
+
+  // TODO: This stuffs an unsigned 32 bit integer into a signed 32 bit integer
+  def readUnsigned32(): Int = {
+    var count: Int = 0
+    var result: Int = 0
+    var shift: Int = 0
+
+    var next: Byte = 0
+    var done: Boolean = false
+    while (!done && count < 4) {
+      count += 1
+      next = readByte()
+      done = ((next & 0x80.toByte) == 0)
+      result |= (next & 0x7F.toByte) << shift
+      shift += 7
+    }
+    if (!done) throw InvalidFormatException(s"readUnsigned32() produced $result")
+    result
   }
 
 }
