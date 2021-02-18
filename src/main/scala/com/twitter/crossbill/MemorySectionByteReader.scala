@@ -8,6 +8,6 @@ case class MemorySectionByteReader(buf: Buf) extends WebAssemblyByteReader(buf) 
     Memory(readLimits())
 
   def read(): MemorySection =
-    MemorySection(fill(readByte(), readMemory()))
+    MemorySection(fill(readUnsigned32(), readMemory()))
 
 }

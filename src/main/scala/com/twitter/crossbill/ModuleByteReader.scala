@@ -2,8 +2,6 @@ package com.twitter.crossbill
 
 import com.twitter.io.{Buf, ByteReader, ProxyByteReader}
 
-// TODO: The use of readByte() in many places is wrong. It is used here
-// as a starting point to get off the ground.
 case class ModuleByteReader(buf: Buf) extends WebAssemblyByteReader(buf) {
 
   def readMagic(): Unit = {

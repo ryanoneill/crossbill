@@ -10,6 +10,6 @@ case class TableSectionByteReader(buf: Buf) extends WebAssemblyByteReader(buf) {
   }
 
   def read(): TableSection =
-    TableSection(fill(readByte(), readTable()))
+    TableSection(fill(readUnsigned32(), readTable()))
 
 }

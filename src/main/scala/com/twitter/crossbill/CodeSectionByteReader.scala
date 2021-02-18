@@ -11,6 +11,6 @@ case class CodeSectionByteReader(buf: Buf) extends WebAssemblyByteReader(buf) {
   }
 
   def read(): CodeSection =
-    CodeSection(fill(readByte(), readCodeEntry()))
+    CodeSection(fill(readUnsigned32(), readCodeEntry()))
 
 }

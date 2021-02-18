@@ -5,9 +5,9 @@ import com.twitter.io.Buf
 case class ElementSectionByteReader(buf: Buf) extends WebAssemblyByteReader(buf) {
 
   def readElement(): Element =
-    Element(readByte(), readInstructions(), fill(readByte(), readByte()))
+    Element(readUnsigned32(), readInstructions(), fill(readUnsigned32(), readUnsigned32()))
 
   def read(): ElementSection =
-    ElementSection(fill(readByte(), readElement()))
+    ElementSection(fill(readUnsigned32(), readElement()))
 
 }

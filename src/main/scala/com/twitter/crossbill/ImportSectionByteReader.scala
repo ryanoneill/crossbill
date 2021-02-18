@@ -21,7 +21,7 @@ case class ImportSectionByteReader(buf: Buf) extends WebAssemblyByteReader(buf) 
   )
 
   def read(): ImportSection = {
-    val size = readByte()
+    val size = readUnsigned32()
     ImportSection(1.to(size).map(_ => readImport()))
   }
 

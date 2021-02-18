@@ -16,9 +16,9 @@ abstract class WebAssemblyByteReader(buf: Buf) extends ProxyByteReader {
 
   protected def fill[T](n: Int, f: => T): Seq[T] = Seq.fill(n)(f)
 
-  protected def readUtf8String(): String = readString(readByte(), WebAssemblyByteReader.Utf8)
+  protected def readUtf8String(): String = readString(readUnsigned32(), WebAssemblyByteReader.Utf8)
 
-  protected def readMemarg(): Memarg = Memarg(readByte(), readByte())
+  protected def readMemarg(): Memarg = Memarg(readUnsigned32(), readUnsigned32())
 
   protected def readLimits(): Limits = readByte() match {
     case 0x00 => Limits.Min(readUnsigned32())
@@ -52,19 +52,20 @@ abstract class WebAssemblyByteReader(buf: Buf) extends ProxyByteReader {
           verify(0x40)
           results.append(Instruction.LoopEnd(BlockType.Empty, readInstructions()))
         case 0x0C =>
-          results.append(Instruction.Br(readByte()))
+          results.append(Instruction.Br(readUnsigned32()))
         case 0x0D =>
-          results.append(Instruction.BrIf(readByte()))
+          results.append(Instruction.BrIf(readUnsigned32()))
         case 0x10 =>
-          results.append(Instruction.Call(readByte()))
+          results.append(Instruction.Call(readUnsigned32()))
         case 0x20 =>
-          results.append(Instruction.LocalGet(readByte()))
+          results.append(Instruction.LocalGet(readUnsigned32()))
         case 0x21 =>
-          results.append(Instruction.LocalSet(readByte()))
+          results.append(Instruction.LocalSet(readUnsigned32()))
         case 0x28 =>
           results.append(Instruction.I32Load(readMemarg()))
         case 0x41 =>
-          results.append(Instruction.I32Constant(readByte()))
+          // TODO: The use of readSigned32 may still be incorrect.
+          results.append(Instruction.I32Constant(readSigned32()))
         case 0x46 =>
           results.append(Instruction.I32Eq)
         case 0x6A =>
@@ -104,6 +105,23 @@ abstract class WebAssemblyByteReader(buf: Buf) extends ProxyByteReader {
     result
   }
 
+  def readSigned32(): Int = {
+    var count: Int = 0
+    var result: Int = 0
+    var shift: Int = 0
+
+    var next: Byte = 0
+    var done: Boolean = false
+    while (!done && count < 4) {
+      next = readByte()
+      done = ((next & 0x80.toByte) == 0)
+      result |= (next & 0x7F.toByte) << shift
+      shift += 7
+    }
+    if (shift < 32 && ((next & 0x40.toByte) != 0))
+      result |= (~0 << shift)
+    result
+  }
 }
 
 object WebAssemblyByteReader {

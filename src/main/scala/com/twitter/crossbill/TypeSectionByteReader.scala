@@ -24,7 +24,7 @@ case class TypeSectionByteReader(buf: Buf) extends WebAssemblyByteReader(buf) {
   }
 
   def read(): TypeSection = {
-    val size = readByte()
+    val size = readUnsigned32()
     TypeSection(1.to(size).map(_ => readFunctionType()))
   }
 
