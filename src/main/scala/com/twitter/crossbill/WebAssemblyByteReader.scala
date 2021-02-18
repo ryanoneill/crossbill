@@ -76,9 +76,9 @@ abstract class WebAssemblyByteReader(buf: Buf) extends ProxyByteReader {
           results.append(Instruction.I64DivU)
         case -119 => // 0x89
           results.append(Instruction.I64Rotl)
-        case -64 => // 0xC0 
+        case -64 => // 0xC0
           results.append(Instruction.I32Extend8S)
-        case _ => 
+        case _ =>
           throw UnsupportedFeatureException(s"Instruction 0x${current.toHexString}")
       }
       current = readByte()
