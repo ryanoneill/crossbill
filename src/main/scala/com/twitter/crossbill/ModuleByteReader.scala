@@ -79,6 +79,12 @@ case class ModuleByteReader(buf: Buf) extends WebAssemblyByteReader(buf) {
     dsbr.read()
   }
 
+  def readCustomSection(): CustomSection = {
+    val size = readUnsigned32()
+    val csbr = CustomSectionByteReader(readBytes(size))
+    csbr.read()
+  }
+
   def read(): Module = {
     // TODO: This needs additional work
     readMagic()
@@ -87,6 +93,8 @@ case class ModuleByteReader(buf: Buf) extends WebAssemblyByteReader(buf) {
     var module = Module()
     while (remaining > 0) {
       readByte() match {
+        // TODO: Multiple custom sections are not currently supported.
+        case 0x00 => module = module.copy(customSection = readCustomSection())
         case 0x01 => module = module.copy(typeSection = readTypeSection())
         case 0x02 => module = module.copy(importSection = readImportSection())
         case 0x03 => module = module.copy(functionSection = readFunctionSection())
