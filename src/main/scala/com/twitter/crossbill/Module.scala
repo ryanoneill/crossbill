@@ -10,5 +10,6 @@ case class Module(
   globalSection: GlobalSection = GlobalSection.Empty,
   exportSection: ExportSection = ExportSection.Empty,
   elementSection: ElementSection = ElementSection.Empty,
-  codeSection: CodeSection = CodeSection.Empty
+  codeSection: CodeSection = CodeSection.Empty,
+  dataSection: DataSection = DataSection.Empty
 )
