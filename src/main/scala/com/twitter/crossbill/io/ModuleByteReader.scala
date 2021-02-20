@@ -1,5 +1,6 @@
-package com.twitter.crossbill
+package com.twitter.crossbill.io
 
+import com.twitter.crossbill._
 import com.twitter.io.{Buf, ByteReader, ProxyByteReader}
 
 case class ModuleByteReader(buf: Buf) extends WebAssemblyByteReader(buf) {

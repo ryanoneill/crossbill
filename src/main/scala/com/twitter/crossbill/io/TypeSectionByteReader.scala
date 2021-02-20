@@ -1,5 +1,6 @@
-package com.twitter.crossbill
+package com.twitter.crossbill.io
 
+import com.twitter.crossbill.{FunctionType, ResultType, TypeSection, ValueType}
 import com.twitter.io.Buf
 
 case class TypeSectionByteReader(buf: Buf) extends WebAssemblyByteReader(buf) {

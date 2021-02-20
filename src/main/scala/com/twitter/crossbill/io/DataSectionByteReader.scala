@@ -1,5 +1,6 @@
-package com.twitter.crossbill
+package com.twitter.crossbill.io
 
+import com.twitter.crossbill.{Data, DataSection}
 import com.twitter.io.Buf
 
 case class DataSectionByteReader(buf: Buf) extends WebAssemblyByteReader(buf) {

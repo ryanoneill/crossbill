@@ -1,5 +1,6 @@
-package com.twitter.crossbill
+package com.twitter.crossbill.io
 
+import com.twitter.crossbill.{Global, GlobalSection, GlobalType, Mutabliity}
 import com.twitter.io.Buf
 
 case class GlobalSectionByteReader(buf: Buf) extends WebAssemblyByteReader(buf) {

@@ -1,4 +1,4 @@
-package com.twitter.crossbill
+package com.twitter.crossbill.io
 
 import com.twitter.io.{Buf, ByteReader}
 import com.twitter.util.Future

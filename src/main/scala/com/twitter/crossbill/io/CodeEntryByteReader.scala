@@ -1,5 +1,6 @@
-package com.twitter.crossbill
+package com.twitter.crossbill.io
 
+import com.twitter.crossbill.{CodeEntry, Local}
 import com.twitter.io.Buf
 
 case class CodeEntryByteReader(buf: Buf) extends WebAssemblyByteReader(buf) {

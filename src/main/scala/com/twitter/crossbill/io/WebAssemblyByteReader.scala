@@ -1,5 +1,6 @@
-package com.twitter.crossbill
+package com.twitter.crossbill.io
 
+import com.twitter.crossbill.{BlockType, Instruction, Limits, Memarg, ValueType}
 import com.twitter.io.{Buf, ByteReader, ProxyByteReader}
 import java.nio.charset.Charset
 import scala.collection.mutable.ArrayBuffer
