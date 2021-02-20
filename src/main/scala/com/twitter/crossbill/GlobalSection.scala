@@ -3,5 +3,7 @@ package com.twitter.crossbill
 case class GlobalSection(globals: Seq[Global])
 
 object GlobalSection {
-  val Empty = GlobalSection(Seq.empty)
+  val Empty = new GlobalSection(Seq.empty) {
+    override def toString(): String = "GlobalSection.Empty"
+  }
 }

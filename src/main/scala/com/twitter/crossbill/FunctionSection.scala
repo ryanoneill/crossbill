@@ -4,5 +4,7 @@ package com.twitter.crossbill
 case class FunctionSection(typeIndices: Seq[Int])
 
 object FunctionSection {
-  val Empty = FunctionSection(Seq.empty)
+  val Empty = new FunctionSection(Seq.empty) {
+    override def toString(): String = "FunctionSection.Empty"
+  }
 }
